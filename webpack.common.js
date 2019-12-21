@@ -5,8 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 const PATHS = {
-  src: path.resolve(__dirname, '../src'),
-  dist: path.resolve(__dirname, '../dist')
+  src: path.resolve(__dirname, './src'),
+  dist: path.resolve(__dirname, './dist')
 };
 
 const PAGES_DIR = PATHS.src;
@@ -17,17 +17,37 @@ module.exports = {
     paths: PATHS
   },
   entry: {
-    app: `${PATHS.src}/js/app.js`
+    app: `${PATHS.src}/app.js`
   },
   output: {
     filename: '[name].[hash].js',
-    path: PATHS.dist
+    path: `${PATHS.dist}/js`
   },
   module: {
     rules: [
       {
         test: /\.scss$/i,
-        use: [MiniCSSExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [
+          MiniCSSExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,
