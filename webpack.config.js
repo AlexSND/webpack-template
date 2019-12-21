@@ -2,6 +2,7 @@ const path = require('path');
 const HTMLPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -11,7 +12,8 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      new OptimizeCssAssetsPlugin()
+      new OptimizeCssAssetsPlugin(),
+      new TerserPlugin()
     ]
   },
   devServer: {
@@ -22,6 +24,11 @@ module.exports = {
       {
         test: /\.css/,
         use: [MiniCSSExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader"
       }
     ]
   },
