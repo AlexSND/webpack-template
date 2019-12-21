@@ -14,6 +14,9 @@ module.exports = {
       new OptimizeCssAssetsPlugin()
     ]
   },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist')
+  },
   module: {
     rules: [
       {
