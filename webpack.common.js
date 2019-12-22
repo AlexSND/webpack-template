@@ -5,8 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 const PATHS = {
-  src: path.join(__dirname, './src'),
-  dist: path.join(__dirname, './dist'),
+  src: path.resolve(__dirname, 'src'),
+  dist: path.resolve(__dirname, 'dist'),
   js: 'js/',
   css: 'styles/',
 };
@@ -90,5 +90,10 @@ module.exports = {
     new MiniCSSExtractPlugin({
       filename: `${PATHS.css}style.[hash].css`
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      '~': PATHS.src
+    }
+  }
 };
