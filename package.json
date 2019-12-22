@@ -9,6 +9,7 @@
   },
   "author": "AlexSND",
   "license": "ISC",
+  "repository": "https://github.com/AlexSND/webpack-template",
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "webpack-cli": "^3.3.10"
