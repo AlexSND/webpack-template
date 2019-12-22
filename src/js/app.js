@@ -1,2 +1,2 @@
 import '~/scss/index.scss';
-import './modules/index';
+import * as modules from './modules/index';

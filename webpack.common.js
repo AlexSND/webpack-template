@@ -7,8 +7,8 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const PATHS = {
   src: path.resolve(__dirname, 'src'),
   dist: path.resolve(__dirname, 'dist'),
-  js: 'js/',
-  css: 'styles/',
+  images: '/images',
+  fonts: '/fonts',
 };
 
 const PAGES_DIR = `${PATHS.src}/pug/pages`;
@@ -22,15 +22,20 @@ module.exports = {
     app: `${PATHS.src}/js/app.js`
   },
   output: {
-    filename: `${PATHS.js}[name].[hash].js`,
-    path: `${PATHS.dist}`
+    filename: 'js/[name].[hash].js',
+    path: PATHS.dist,
   },
   module: {
     rules: [
       {
         test: /\.scss$/i,
         use: [
-          MiniCSSExtractPlugin.loader,
+          {
+            loader: MiniCSSExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -67,7 +72,14 @@ module.exports = {
         test: /\.(jpg|jpeg|png|svg|gif)$/,
         loader: "file-loader",
         options: {
-          name: '[name].[ext]'
+          name: `${PATHS.images}/[name].[ext]`
+        }
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+        options: {
+          name: `${PATHS.fonts}/[name].[ext]`
         }
       }
     ]
@@ -79,16 +91,11 @@ module.exports = {
     })),
     new CopyWebpackPlugin([
       {
-        from: `${PATHS.src}/images`,
-        to: `${PATHS.dist}/images`,
-      },
-      {
-        from: `${PATHS.src}/misc`,
-        to: `${PATHS.dist}`,
+        from: `${PATHS.src}/misc`
       }
     ]),
     new MiniCSSExtractPlugin({
-      filename: `${PATHS.css}style.[hash].css`
+      filename: 'styles/style.[hash].css'
     })
   ],
   resolve: {
