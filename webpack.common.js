@@ -19,7 +19,7 @@ module.exports = {
     paths: PATHS
   },
   entry: {
-    app: `${PATHS.src}/app.js`
+    app: `${PATHS.src}/js/app.js`
   },
   output: {
     filename: `${PATHS.js}[name].[hash].js`,
@@ -88,7 +88,7 @@ module.exports = {
       }
     ]),
     new MiniCSSExtractPlugin({
-      filename: `${PATHS.css}[name].[hash].css`
+      filename: `${PATHS.css}style.[hash].css`
     })
   ]
 };
